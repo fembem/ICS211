@@ -11,9 +11,32 @@ public class OrderedLinkedListTest {
   }
 
   @Test
-  public void test() {
+  public void testEmptyList() {
     OrderedLinkedList<Object> list = new OrderedLinkedList<Object>(
-        "john", "leo", "jerry", "amy", "tom", "barbara"
+        );
+    System.out.println(list);
+  }
+  @Test
+  public void testSizeOneList() {
+    OrderedLinkedList<Object> list = new OrderedLinkedList<Object>(
+        );
+    System.out.println(list);
+    list.add("tony", null);
+    System.out.println(list);
+  }
+  @Test
+  public void testSizeTwoList() {
+    OrderedLinkedList<Object> list = new OrderedLinkedList<Object>(
+        "john"
+        );
+    System.out.println(list);
+    list.add("tony", null);
+    System.out.println(list);
+  }
+  @Test
+  public void testSizeThreeList() {
+    OrderedLinkedList<Object> list = new OrderedLinkedList<Object>(
+        "john", "leo"
         );
     System.out.println(list);
     list.add("tony", null);
