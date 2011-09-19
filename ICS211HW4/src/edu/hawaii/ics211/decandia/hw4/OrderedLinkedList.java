@@ -80,52 +80,47 @@ public class OrderedLinkedList<E> {
   /**
    * Adds the value E to the linked list.
    * 
-   * @param key the key used for ordering
-   * @param value the payload
+   * @param insertionKey the key used for ordering
+   * @param insertionValue the payload
    * @return the element replaced or null if no element with the same key was in the list
    */
-  protected E add(String key, E value) {
-    KeyedNode newNode = new KeyedNode(value, key);
-    KeyedNode current = this.head;  //start at the head of the list
+  protected E add(String insertionKey, E insertionValue) {
+    KeyedNode newNode = new KeyedNode(insertionValue, insertionKey);
     E result = null;  // the value to return
     if (head == null) { // the list is empty
       this.head = newNode; // set a new KeyedNode as the head
       return null; // there is clearly no element being replaced
-    }
-    else if (current.next == null) {   //there is only one element in the list
-      int newKeyWrtFirstElement = current.key.compareToIgnoreCase(key);
-      if (newKeyWrtFirstElement > 0){
-        this.head.next = newNode;
-        newNode.next = null;
-        return null;
-      } else if (newKeyWrtFirstElement < 0) {
-        KeyedNode oldFirst = this.head;
-        this.head = newNode;
-        newNode.next = oldFirst;
-        oldFirst.next = null;
-        return null;
-      } else {
-        result = this.head.object;
-        this.head = newNode;
-        return result;
+    } else if (insertionKey.compareToIgnoreCase(this.head.key) <= 0 ) {
+      System.out.println("inserting at beginning of non-empty list");
+      //insert at beginning of list
+      KeyedNode oldFirst = this.head;
+      this.head = newNode;
+      newNode.next = oldFirst;
+    } else {  //insert after beginning of list
+      KeyedNode current = this.head;
+      System.out.println("current is now " + current.key);
+      // advance head while there is a next element and the insertion key
+      // is "bigger or equal" to the key of the next element
+      while (current.next != null && insertionKey.compareToIgnoreCase(current.next.key) > 0) {
+        System.out.println("advancing to " + current.next.key);
+        assert current.next.key != null;
+        current = current.next;
       }
+      // set the newNode to point to the element after the insertion point
+      newNode.next = current.next;
+      // set the node before the insertion point to point to the new node
+      current.next = newNode;
+      
     }
-    // advance head while there is a next element and the insertion key
-    // is "bigger or equal" to the key of the next element after the next element
-    while (current.next.next != null && current.next.next.key.compareToIgnoreCase(key) >= 0) {
-      current = current.next;
+    
+    //see if the node after the newly inserted one has the same key
+    if (newNode.next != null && newNode.next.key.compareToIgnoreCase(insertionKey) == 0) {
+      //return the value of the duplicate
+      result = newNode.next.object;
+      //set the newly inserted node to point to whatever comes after the duplicate
+      newNode.next = newNode.next.next;
     }
-    // set the newNode to point to the element after the insertion point
-    newNode.next = current.next;
-    // set the node before the insertion point to point to the new node
-    current.next = newNode;
-    // set head to point to the node after the one just inserted
-    current = newNode;
-
-    if (current.next != null && current.next.key.compareToIgnoreCase(key) == 0) {
-      result = current.object;
-      current.next = current.next.next;
-    }
+    
     return result;
   }
 
