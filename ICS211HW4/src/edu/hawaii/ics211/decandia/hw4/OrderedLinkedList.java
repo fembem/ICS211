@@ -16,12 +16,16 @@ package edu.hawaii.ics211.dec.hw4;
  */
 public class OrderedLinkedList<E> {
 
+  public OrderedLinkedList(){
+    
+  }
+  
   public OrderedLinkedList(String... keys) {
     for (String key : keys) {
       this.add(key, null);
     }
   }
-
+  
   @Override
   public String toString() {
     StringBuffer result = new StringBuffer("(");
@@ -84,25 +88,22 @@ public class OrderedLinkedList<E> {
    * @param insertionValue the payload
    * @return the element replaced or null if no element with the same key was in the list
    */
-  protected E add(String insertionKey, E insertionValue) {
+  public E add(String insertionKey, E insertionValue) {
     KeyedNode newNode = new KeyedNode(insertionValue, insertionKey);
     E result = null;  // the value to return
     if (head == null) { // the list is empty
       this.head = newNode; // set a new KeyedNode as the head
       return null; // there is clearly no element being replaced
     } else if (insertionKey.compareToIgnoreCase(this.head.key) <= 0 ) {
-      System.out.println("inserting at beginning of non-empty list");
       //insert at beginning of list
       KeyedNode oldFirst = this.head;
       this.head = newNode;
       newNode.next = oldFirst;
     } else {  //insert after beginning of list
       KeyedNode current = this.head;
-      System.out.println("current is now " + current.key);
       // advance head while there is a next element and the insertion key
       // is "bigger or equal" to the key of the next element
       while (current.next != null && insertionKey.compareToIgnoreCase(current.next.key) > 0) {
-        System.out.println("advancing to " + current.next.key);
         assert current.next.key != null;
         current = current.next;
       }
@@ -122,6 +123,25 @@ public class OrderedLinkedList<E> {
     }
     
     return result;
+  }
+  
+  public E find(String key){
+    KeyedNode current = head;
+    while (current != null){
+      if(current.key.equalsIgnoreCase(key)){
+        return current.object;
+      }
+    }
+    return null;
+  }
+  
+  public E get(int position){
+    KeyedNode current = head;
+    for(int i = 0; current != null; i++){
+      if(i == position) return current.object;
+      current = current.next;
+    }
+    return null;    
   }
 
 }
