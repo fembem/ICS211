@@ -1,1 +1,0 @@
-java -cp bin edu.hawaii.ics211.dec.hw4.AddressBook < batch_input.txt
