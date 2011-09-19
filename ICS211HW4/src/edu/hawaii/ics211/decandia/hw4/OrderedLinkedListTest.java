@@ -61,5 +61,28 @@ public class OrderedLinkedListTest {
     assertTrue(list.get(2).equals("leoReplacement"));
     assertTrue(list.get(3).equals("tylerValue"));    
   }
+  
+  @Test
+  public void testFind() {
+    OrderedLinkedList<String> list = new OrderedLinkedList<String>();
+    list.add("paul", "paulValue");
+    list.add("norris", "norrisValue");
+    list.add("marion", "marionValue");
+    list.add("linda", "lindaValue");
+    assertTrue(list.find("paul").equals("paulValue"));
+    assertTrue(list.find("linda").equals("lindaValue")); 
+    assertNull(list.find("jerry")); 
+  }
+  
+  @Test
+  public void testGet() {
+    OrderedLinkedList<String> list = new OrderedLinkedList<String>();
+    list.add("paul", "paulValue");
+    list.add("norris", "norrisValue");
+    list.add("marion", "marionValue");
+    list.add("linda", "lindaValue");
+    assertTrue(list.get(0).equals("lindaValue"));
+    assertTrue(list.get(3).equals("paulValue"));
+  }
 
 }

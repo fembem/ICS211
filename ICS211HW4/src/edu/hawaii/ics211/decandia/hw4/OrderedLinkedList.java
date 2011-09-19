@@ -131,6 +131,7 @@ public class OrderedLinkedList<E> {
       if(current.key.equalsIgnoreCase(key)){
         return current.object;
       }
+      current = current.next;
     }
     return null;
   }
