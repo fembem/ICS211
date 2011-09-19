@@ -85,4 +85,22 @@ public class OrderedLinkedListTest {
     assertTrue(list.get(3).equals("paulValue"));
   }
 
+  @Test
+  public void testSize() {
+    OrderedLinkedList<String> list = new OrderedLinkedList<String>();
+    assertEquals(0, list.size());
+    list.add("joe", "joeValue");
+    assertEquals(1, list.size());
+    list.add("john", "johnOriginal");
+    assertEquals(2, list.size());
+    list.add("leo", "leoOriginal");
+    assertEquals(3, list.size());
+    list.add("leo", "leoReplacement");
+    assertEquals(3, list.size());
+    list.add("tyler", "tylerValue");
+    assertEquals(4, list.size());
+    list.add("john", "johnReplacement");
+    assertEquals(4, list.size());
+  }
+  
 }
