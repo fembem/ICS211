@@ -1,0 +1,22 @@
+add
+123-123-4444
+add
+Abby Ames
+999-123-4444
+add
+Chloe Shymes
+444-123-4444
+add
+Jerry Springer
+321-575-4444
+add
+123-123-4444
+find
+Abby Ames
+find
+Chloe Shymes
+find
+Tommy Knowles
+print
+randm command
+quit
