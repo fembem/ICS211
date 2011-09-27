@@ -1,0 +1,235 @@
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+1
+you chose the 'add at end' option
+enter string to add
+leo
+The list has 1 string
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+1
+you chose the 'add at end' option
+enter string to add
+jenny
+The list has 2 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+1
+you chose the 'add at end' option
+enter string to add
+john
+The list has 3 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+1
+you chose the 'add at end' option
+enter string to add
+jerry
+The list has 4 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+1
+you chose the 'add at end' option
+enter string to add
+tommy
+The list has 5 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+6
+you chose the 'print' option
+leo ==> jenny ==> john ==> jerry ==> tommy
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+2
+you chose the 'add at position' option
+enter string to add
+linda
+enter integer position
+3
+The list now has 6 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+3
+you chose the 'remove by index' option
+enter integer position
+4
+The removed string is: jerry
+The list now has 5 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+4
+you chose the 'remove by equality' option
+enter string to remove
+jerry
+The list was unchanged
+The list now has 5 strings
+
+enter one of:
+(1) add at end
+(2) add at position
+(3) remove by index
+(4) remove by equality
+(5) create iterator
+(6) print
+(7) quit
+
+5
+you chose the 'create iterator' option
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+1
+Calling hasNext on the iterator
+hasNext returned: true
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+3
+Calling remove on the iterator
+java.lang.IllegalStateException
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+2
+Calling next on the iterator
+Got string: leo
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+3
+Calling remove on the iterator
+The list now has 4 strings
+
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+3
+Calling remove on the iterator
+java.lang.IllegalStateException
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+2
+Calling next on the iterator
+Got string: jenny
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+2
+Calling next on the iterator
+Got string: john
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+2
+Calling next on the iterator
+Got string: linda
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
+2
+Calling next on the iterator
+Got string: tommy
+enter one of:
+(1) call hasNext on the iterator
+(2) call next on the iterator
+(3) call remove on the iterator
+(4) quit the iterator
+
