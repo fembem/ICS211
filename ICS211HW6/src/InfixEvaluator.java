@@ -1,8 +1,18 @@
+/** 
+  * Does infix evaluation of an expression with *, /, +, - operators with floating
+  * point constants and no parentheses.
+  * @author         , Leo
+  * @assignment     ICS 613 Assignment 6 
+  * @date           October 9, 2011
+  * @bugs           None
+  */
 import java.util.*;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /** Class that can evaluate a postfix expression.
 *   @author Koffman & Wolfgang
+*   @author ICS 211 Section 1, Leo , Assignment 6
 * */
 
 /*
@@ -18,36 +28,26 @@ import javax.swing.JOptionPane;
  * 
  */
 
+
 public class InfixEvaluator {
 
-  // Nested Class
-  /** Class to report a syntax error. */
-  public static class SyntaxErrorException
-      extends Exception {
-    private static final long serialVersionUID = 3190324611750565066L;
-
-    /** Construct a SyntaxErrorException with the specified
-        message.
-        @param message The message
-     */
-    SyntaxErrorException(String message) {
-      super(message);
-    }
-  }
-
-  // Data Field
+  /** A logger for debugging. */
+  Logger logger = Logger.getLogger("com.mycompany.BasicLogging");
+  
   /** The operand stack. */
   private Stack < Float > operandStack;
+  
+  /** The operator stack. */
   private Stack < Character > operatorStack;
 
-  // Methods
-  /** Evaluates the current operation.
-      This function pops the two operands off the operand
-      stack and applies the operator.
-      @param op A character representing the operator
-      @return The result of applying the operator
-      @throws EmptyStackException if pop is attempted on
-              an empty stack
+  /**
+   * Evaluates the current operation.
+   * This function pops the two operands off the operand
+   * stack and applies the operator.
+   *
+   * @author Koffman & Wolfgang
+   * @param op A character representing the operator
+   * @return The result of applying the operator
    */
   private float evalOp(char op) {
     // Pop the two operands off the stack.
@@ -73,20 +73,26 @@ public class InfixEvaluator {
     return result;
   }
 
-  /** Determines whether a character is an operator.
-      @param op The character to be tested
-      @return true if the character is an operator
+  /**
+   * Determines whether a character is an operator.
+   *
+   * @author Koffman & Wolfgang
+   * @param ch the character
+   * @return true if the character is an operator
    */
   private boolean isOperator(char ch) {
     return OPERATORS.indexOf(ch) != -1;
   }
 
   /** Evaluates a postfix expression.
-      @param expression The expression to be evaluated
-      @return The value of the expression
-      @throws SyntaxErrorException if a syntax error is detected
+   *   @author Koffman & Wolfgang
+   *   @author Leo 
+   *   @param expression The expression to be evaluated
+   *   @return The value of the expression
+   *   @throws SyntaxErrorException if a syntax error is detected
    */
   public float eval(String expression) throws SyntaxErrorException {
+    logger.info("---------------------------------");
     // Create an empty stack.
     operandStack = new Stack < Float > ();
     operatorStack = new Stack < Character > ();
@@ -96,27 +102,31 @@ public class InfixEvaluator {
     try {
       while (tokens.hasMoreTokens()) {
         String nextToken = tokens.nextToken();
+        logger.info("new token: " + nextToken);
         // Does it start with a digit?
         if (Character.isDigit(nextToken.charAt(0))) {
-          // Get the integer value.
-          float value = Integer.parseInt(nextToken);
+          // Get the float value.
+          float value = Float.parseFloat(nextToken);
           // Push value onto operand stack.
           operandStack.push(value);
         } // Is it an operator?
         else if (isOperator(nextToken.charAt(0))) {
           
           char newOp = nextToken.charAt(0);
-          char oldOp = operatorStack.peek();
+          logger.info("new op: " + newOp);
           
-          if ( precedence(newOp) > precedence(oldOp) ){
+          if ( operatorStack.isEmpty() || 
+              precedence(newOp) > precedence(operatorStack.peek()) ){
             operatorStack.push(newOp);
-          }
-          else {
+          } else {
+            char oldOp = operatorStack.peek();
+            logger.info("ol op: " + oldOp);
             //the top of the operator stack is popped and evaluated 
             //with the top two elements of the operand stack
             float result = evalOp(operatorStack.pop());
             // the result is pushed onto the operand stack
             operandStack.push(result);
+            logger.info("pushed evalOp result: " + result);
             //the new operator is pushed onto the operator stack
             operatorStack.push(newOp);
           }
@@ -129,6 +139,8 @@ public class InfixEvaluator {
         }
       } // End while.
 
+      logger.info("no more tokens");
+      
       // No more tokens
       //operators are popped off and evaluated 
       //(popping the operands and pushing the results)
@@ -137,6 +149,7 @@ public class InfixEvaluator {
         try{
           float result = evalOp(operatorStack.pop());
           operandStack.push(result);
+          logger.info("pushed evalOp result: " + result);
         } catch (EmptyStackException ese) {
           throw new SyntaxErrorException(
               "operator on stack missing lhs or rhs argument");
@@ -147,19 +160,26 @@ public class InfixEvaluator {
       float answer = operandStack.pop();
       // Operand stack should be empty.
       if (operandStack.empty()) {
+        logger.info("answer is: " + answer);
         return answer;
       }
       else {
         // Indicate syntax error.
+        logger.severe("Operand stack orphan elements:");
+        while (!operandStack.isEmpty()){
+          logger.severe(operandStack.pop() + "; ");
+        }
         throw new SyntaxErrorException(
             "Syntax Error: Stack should be empty");
       }
+    
     }
     catch (EmptyStackException ex) {
       // Pop was attempted on an empty stack.
       throw new SyntaxErrorException(
           "Syntax Error: The stack is empty");
     }
+    
   }
   
   // Constant
@@ -171,18 +191,17 @@ public class InfixEvaluator {
       1, 1, 2, 2};
   
   /** Determine the precedence of an operator.
-  @param op The operator
-  @return the precedence
-*/
+   * @param op The operator
+   * @return the precedence
+   */
   private int precedence(char op) {
     return PRECEDENCE[OPERATORS.indexOf(op)];
   }
 
   /** main method. Ask the user for a string and
-  call the ParenChecker to see whether the parentheses
-  are balanced.
-  @param args Not used
-*/
+   * call the InfixEvaluator to find the result of the given expression
+   * @param args Not used
+   */
   public static void main(String args[]) {
     String expression = JOptionPane.showInputDialog(
         "Enter an infix expression");
@@ -197,4 +216,17 @@ public class InfixEvaluator {
     System.exit(0);
   }
   
+}
+
+class SyntaxErrorException
+extends Exception {
+  private static final long serialVersionUID = 3190324611750565066L;
+
+  /** Construct a SyntaxErrorException with the specified
+  message.
+  @param message The message
+   */
+  SyntaxErrorException(String message) {
+    super(message);
+  }
 }
